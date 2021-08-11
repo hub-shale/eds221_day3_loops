@@ -1,0 +1,74 @@
+---
+title: "EOD_loops"
+author: "Shale"
+date: "8/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## practice loops
+
+```{r}
+pm2_5 = 123
+
+if (pm2_5 < 100) {
+  print("low to moderate risk")
+} else if (pm2_5 >= 100 & pm2_5 < 150) {
+  print("unhealthy for sensitive groups")
+} else if (pm2_5 >= 150) {
+  print("health risk present")
+}
+
+```
+
+```{r}
+max_airtemp_c = 24.1
+
+if (max_airtemp_c > 27) {
+  print("temperature too high")
+} else if (max_airtemp_c <= 27) {
+  print("temperature OK")
+}
+```
+
+```{r}
+base_burrito = 6.5
+
+main_ingredient = c("veggie", "chicken", "steak")
+
+switch(main_ingredient[3],
+       "veggie" = base_burrito,
+       "chicken" = base_burrito + 3,
+       "steak" = base_burrito + 3.25)
+
+
+```
+
+
+## `for()` loops
+
+```{r}
+fish = c(8, 10, 12, 23)
+
+total_fish = sum(fish)
+
+for (i in seq_along(fish)) {
+  pct_fish = fish[i] / total_fish
+  print(pct_fish)
+}
+```
+
+```{r}
+for(i in seq_along(month.name)) {
+  print(paste(month.name[i], "is month", i))
+}
+```
+
+
+
+
+

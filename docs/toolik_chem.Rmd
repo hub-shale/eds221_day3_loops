@@ -1,0 +1,51 @@
+---
+title: "toolik_chem"
+author: "Shale"
+date: "8/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(tidyverse)
+library(janitor)
+library(purrr)
+```
+
+## chem analysis
+
+```{r}
+toolik_biochem = read.csv(here("data", "2011_Kling_Akchem.csv"), na.strings = ".")
+
+toolik_biochem = toolik_biochem %>% clean_names()
+```
+
+
+```{r}
+inlet_biochem = toolik_biochem %>%
+  mutate(across(site, tolower)) %>%
+  filter(site == "toolik inlet") %>% 
+  select(p_h, doc_u_m, tdn_u_m)
+```
+
+## triple calculations
+
+```{r}
+in_mean_f = vector(mode = "numeric", length = ncol(inlet_biochem))
+
+for(i in 1:ncol(inlet_biochem)) {
+  mean_val = mean(inlet_biochem[[i]], na.rm = TRUE)
+  in_mean_f[i] = mean_val
+}
+```
+
+```{r}
+in_mean_a = apply(inlet_biochem, 2, mean, na.rm = TRUE)
+```
+
+```{r}
+in_mean_m = map_df(inlet_biochem, mean, na.rm = TRUE)
+
+```
+
